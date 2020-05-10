@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.grapro.mapper.CarDistinguishMapper">
+    <resultMap id="BaseResultMap" type="com.grapro.pojo.CarDistinguish" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="carnumber" property="carnumber" jdbcType="VARCHAR" />
+        <result column="licenseplatecolor" property="licenseplatecolor" jdbcType="VARCHAR" />
+        <result column="carcolor" property="carcolor" jdbcType="VARCHAR" />
+        <result column="carbrand" property="carbrand" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    id, carnumber, licenseplatecolor, carcolor, carbrand
+    </sql>
+
+    <insert id="addCarDistinguish" parameterType="com.grapro.pojo.CarDistinguish">
+     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+         select LAST_INSERT_ID()
+     </selectKey>
+      insert into cardistinguish (id, carnumber, licenseplatecolor,
+      carcolor, carbrand
+      )
+      values (#{id,jdbcType=INTEGER}, #{carnumber,jdbcType=VARCHAR}, #{licenseplatecolor,jdbcType=VARCHAR},
+      #{carcolor,jdbcType=VARCHAR}, #{carbrand,jdbcType=VARCHAR}
+      )
+    </insert>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from cardistinguish
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="delectById" parameterType="int">
+		delete from cardistinguish where id = #{id}
+	</delete>
+
+</mapper>

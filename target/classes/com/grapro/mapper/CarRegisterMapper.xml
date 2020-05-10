@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.grapro.mapper.CarRegisterMapper">
+    <resultMap id="BaseResultMap" type="com.grapro.pojo.CarRegister" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="carnumber" property="carnumber" jdbcType="VARCHAR" />
+        <result column="identitycard" property="identitycard" jdbcType="VARCHAR" />
+        <result column="cardname" property="cardname" jdbcType="VARCHAR" />
+        <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+        <result column="licenseplatecolor" property="licenseplatecolor" jdbcType="VARCHAR" />
+        <result column="carcolor" property="carcolor" jdbcType="VARCHAR" />
+        <result column="carbrand" property="carbrand" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    id, carnumber, identitycard, cardname, telephone, licenseplatecolor, carcolor, carbrand
+    </sql>
+
+    <select id="selectByCarNumber" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from carregister
+        where carnumber = #{carnumber,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="addCarRegister" parameterType="com.grapro.pojo.CarRegister">
+        insert into carregister (id, carnumber, identitycard, cardname, telephone, licenseplatecolor,
+        carcolor, carbrand
+        )
+        values (#{id,jdbcType=INTEGER}, #{carnumber,jdbcType=VARCHAR}, #{identitycard,jdbcType=VARCHAR}, #{cardname,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{licenseplatecolor,jdbcType=VARCHAR},
+        #{carcolor,jdbcType=VARCHAR}, #{carbrand,jdbcType=VARCHAR}
+        )
+    </insert>
+</mapper>

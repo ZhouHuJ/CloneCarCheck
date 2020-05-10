@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.grapro.mapper.CloneCarMapper">
+    <resultMap id="BaseResultMap" type="com.grapro.pojo.CloneCar" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="cardistinguishid" property="cardistinguishid" jdbcType="INTEGER" />
+        <result column="picturelocaladdress" property="picturelocaladdress" jdbcType="VARCHAR" />
+        <result column="policeuserid" property="policeuserid" jdbcType="INTEGER" />
+        <result column="clonecarstatus" property="clonecarstatus" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    id, cardistinguishid, picturelocaladdress, policeuserid, clonecarstatus
+    </sql>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from clonecar
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByclonecarstatus" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from clonecar
+        where clonecarstatus = #{clonecarstatus,jdbcType=INTEGER}
+    </select>
+
+    <insert id="addCloneCar" parameterType="com.grapro.pojo.CloneCar">
+        insert into clonecar (id, cardistinguishid, picturelocaladdress,
+        policeuserid, clonecarstatus
+        )
+        values (#{id,jdbcType=INTEGER}, #{cardistinguishid,jdbcType=INTEGER}, #{picturelocaladdress,jdbcType=VARCHAR},
+        #{policeuserid,jdbcType=INTEGER}, #{clonecarstatus,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <update id="updateClonecar" parameterType="com.grapro.pojo.CloneCar" >
+    update clonecar
+    set  policeuserid = #{policeuserid,jdbcType=INTEGER},
+      clonecarstatus = #{clonecarstatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
